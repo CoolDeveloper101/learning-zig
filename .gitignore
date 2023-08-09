@@ -1,2 +1,6 @@
 /zig-cache/
 /zig-out/
+/pdfium/lib/
+pdfium-linux-x64.tgz
+ISO_32000-2-2020_sponsored.pdf
+Simple PDF 2.0 file.pdf

@@ -1,4 +1,5 @@
 const std = @import("std");
+const zig_version = @import("builtin").zig_version;
 
 // Although this function looks imperative, note that its job is to
 // declaratively construct a build graph that will be executed by an external
@@ -23,6 +24,16 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe.addIncludePath(std.Build.LazyPath.relative("pdfium/include"));
+    exe.addLibraryPath(std.Build.LazyPath.relative("pdfium/lib"));
+    exe.linkSystemLibrary("pdfium");
+    exe.linkLibC();
+    // exe.linkLibCpp();
+
+    // exe.linkLibrary(lib: *Compile)
+    // exe.addObjectFile("pdfium");
+    // exe.addObjectFile(std.Build.LazyPath.relative("libpdfium.so"));
+    // exe.addObjectFile(std.Build.LazyPath.relative("pdfium/lib/libpdfium.so"));
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
