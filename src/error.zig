@@ -1,4 +1,6 @@
-const fpdfview = @cImport(@cInclude("fpdfview.h"));
+const pdfium = @cImport({
+    @cInclude("fpdfview.h");
+});
 
 pub const PdfiumError = error {
     /// Success
@@ -24,19 +26,22 @@ pub const PdfiumError = error {
 
     /// Invalid version
     VersionError,
+
+    /// Creation Error
+    CreationError
 };
 
 pub fn handleError() PdfiumError {
-    const err = fpdfview.FPDF_GetLastError();
+    const err = pdfium.FPDF_GetLastError();
 
     return switch (err) {
-        fpdfview.FPDF_ERR_SUCCESS => PdfiumError.Success,
-        fpdfview.FPDF_ERR_UNKNOWN => PdfiumError.Unknown,
-        fpdfview.FPDF_ERR_FILE => PdfiumError.FileNotFound,
-        fpdfview.FPDF_ERR_FORMAT => PdfiumError.InvalidFormat,
-        fpdfview.FPDF_ERR_PASSWORD => PdfiumError.Password,
-        fpdfview.FPDF_ERR_SECURITY => PdfiumError.Security,
-        fpdfview.FPDF_ERR_PAGE => PdfiumError.PageNotFound,
+        pdfium.FPDF_ERR_SUCCESS => PdfiumError.Success,
+        pdfium.FPDF_ERR_UNKNOWN => PdfiumError.Unknown,
+        pdfium.FPDF_ERR_FILE => PdfiumError.FileNotFound,
+        pdfium.FPDF_ERR_FORMAT => PdfiumError.InvalidFormat,
+        pdfium.FPDF_ERR_PASSWORD => PdfiumError.Password,
+        pdfium.FPDF_ERR_SECURITY => PdfiumError.Security,
+        pdfium.FPDF_ERR_PAGE => PdfiumError.PageNotFound,
         else => unreachable,
     };
 }

@@ -32,8 +32,9 @@ pub fn main() !void {
     const page = try doc.getPage(3);
     defer page.close();
 
-    std.debug.print("Page width is {d:.2}in\n", .{page.getWidth() / 72.0});
     std.debug.print("Page height is {d:.2}in\n", .{page.getHeight() / 72.0});
+    std.debug.print("Page width is {d:.2}in\n", .{page.getWidth() / 72.0});
+    std.debug.print("Page rotation is {d}°\n", .{@as(usize, page.getRotation()) * 90});
 }
 
 /// Initializes the global library state.
@@ -58,6 +59,7 @@ pub fn initLibrary() void {
 }
 
 
+/// Destroys the library.
 pub fn destroyLibrary() void {
     fpdfview.FPDF_DestroyLibrary();
 }
