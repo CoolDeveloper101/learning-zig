@@ -40,4 +40,9 @@ pub const Page = struct {
         //const rotation: i3 = @truncate();
         return @truncate(rotation);
     }
+
+    /// Sets the rotation for the page.
+    pub fn setRotation(self: *const Self, rotation: u2) void {
+        pdfium.FPDFPage_SetRotation(self.page, rotation);
+    }
 };

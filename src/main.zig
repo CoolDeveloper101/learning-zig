@@ -34,6 +34,7 @@ pub fn main() !void {
 
     std.debug.print("Page height is {d:.2}in\n", .{page.getHeight() / 72.0});
     std.debug.print("Page width is {d:.2}in\n", .{page.getWidth() / 72.0});
+    page.setRotation(3);
     std.debug.print("Page rotation is {d}°\n", .{@as(usize, page.getRotation()) * 90});
 }
 

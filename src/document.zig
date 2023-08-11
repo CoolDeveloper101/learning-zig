@@ -59,6 +59,9 @@ pub const Document = struct {
         return createDocumentFromRawPtr(doc);
     }
 
+    /// Creates a new document. 
+    /// The allocation of resources will be handled by
+    /// the pdfium library.
     pub fn createDocument() !Document {
         const doc = pdfium.FPDF_CreateNewDocument();
         if (doc == null) {
@@ -67,8 +70,10 @@ pub const Document = struct {
         return createDocumentFromRawPtr(doc);
     }
 
-    /// Create a zig `Document` from a FPDF_DOCUMENT pointer.
-    fn createDocumentFromRawPtr(ptr: pdfium.FPDF_DOCUMENT) Self {
+    /// Create a zig `Document` from a raw FPDF_DOCUMENT pointer.
+    /// Used internally and might be usefull for interacting with
+    /// other languages.
+    pub fn createDocumentFromRawPtr(ptr: pdfium.FPDF_DOCUMENT) Self {
         return Self {
             .doc = ptr,
             .buffer = null,
