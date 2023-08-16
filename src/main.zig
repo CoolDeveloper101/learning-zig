@@ -1,6 +1,7 @@
 const std = @import("std");
 const fpdfview = @cImport(@cInclude("fpdfview.h"));
 const Document = @import("document.zig").Document;
+const Bitmap = @import("bitmap.zig").Bitmap;
 
 var gpa = std.heap.GeneralPurposeAllocator(.{ .safety = true }){};
 const alloc = gpa.allocator();
@@ -15,6 +16,11 @@ pub fn main() !void {
 
     initLibrary();
     defer destroyLibrary();
+
+    const bitmap = try Bitmap.create(1920, 1080, 0);
+    const format = bitmap.getFormat();
+    std.debug.print("{any}\n", .{format});
+    
 
     // const filename = "Simple PDF 2.0 file.pdf";
     const filename = "ISO_32000-2-2020_sponsored.pdf";
@@ -34,7 +40,7 @@ pub fn main() !void {
 
     std.debug.print("Page height is {d:.2}in\n", .{page.getHeight() / 72.0});
     std.debug.print("Page width is {d:.2}in\n", .{page.getWidth() / 72.0});
-    page.setRotation(3);
+    page.setRotation(2);
     std.debug.print("Page rotation is {d}°\n", .{@as(usize, page.getRotation()) * 90});
 }
 

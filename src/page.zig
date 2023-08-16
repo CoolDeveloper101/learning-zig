@@ -46,3 +46,11 @@ pub const Page = struct {
         pdfium.FPDFPage_SetRotation(self.page, rotation);
     }
 };
+
+
+pub const Rotation = enum(u2) {
+    @"0" = 0,
+    @"π/2" = 1,
+    @"π" = 2,
+    @"3π/2" = 3,
+};
